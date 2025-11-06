@@ -23,7 +23,7 @@ GitHub uses a service called [camo](https://docs.github.com/en/authentication/ke
 
 <!-- BASELINE -->
 [![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true)](https://github.com/hesreallyhim)
-
+<!-- BASELINE-END -->
 
 ## 2. Nonce Query Parameter (image URL contains "nonce" query-parameter with random numerical value)
 
@@ -33,7 +33,12 @@ GitHub uses a service called [camo](https://docs.github.com/en/authentication/ke
 > The image URL below contains a query parameter `nonce` with a random number value. Create an Issue in this repository and write the word "nonce" somewhere in the body. This will trigger a GitHub Action that changes the query parameter value to some other "random" number. This is used to test whether changing query parameters is sufficient to bust the cache and refresh the image content.
 
 <!-- NONCE -->
+```markdown
 [![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true&nonce=123456)](https://github.com/hesreallyhim)
+```
 
+
+[![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true&nonce=123456)](https://github.com/hesreallyhim)
+<!-- NONCE-END -->
 
 
