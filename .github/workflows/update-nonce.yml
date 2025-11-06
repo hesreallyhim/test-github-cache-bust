@@ -39,13 +39,23 @@ jobs:
           NEW_NONCE=$(printf "%06d" $((RANDOM % 1000000)))
           echo "Generated new nonce: $NEW_NONCE"
 
+          # Get current timestamp in UTC
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          echo "Current timestamp: $TIMESTAMP"
+
           # Find and replace nonce=NNNNNN pattern with new nonce
           # Only within the NONCE section markers
           NONCE_PATTERN='/<!-- NONCE -->/,/<!-- NONCE-END -->/'
           NONCE_REPLACEMENT='s/nonce=[0-9]\{6\}/nonce='"$NEW_NONCE"'/g'
           sed -i "${NONCE_PATTERN}${NONCE_REPLACEMENT}" README.md
 
-          echo "Updated README.md with new nonce value"
+          # Update the timestamp in the visual indicator
+          TS_PATTERN='/<!-- NONCE -->/,/<!-- NONCE-END -->/'
+          TS_REPL='s/Last updated: `[^`]*`/'
+          TS_REPL="${TS_REPL}Last updated: \`$TIMESTAMP\`/g"
+          sed -i "${TS_PATTERN}${TS_REPL}" README.md
+
+          echo "Updated README.md with new nonce value and timestamp"
 
       - name: Commit and push changes
         if: steps.check-nonce.outputs.contains_nonce == 'true'
