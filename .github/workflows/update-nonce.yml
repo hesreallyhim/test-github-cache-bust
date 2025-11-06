@@ -39,13 +39,28 @@ jobs:
           NEW_NONCE=$(printf "%06d" $((RANDOM % 1000000)))
           echo "Generated new nonce: $NEW_NONCE"
 
+          # Get current timestamp in UTC
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          echo "Current timestamp: $TIMESTAMP"
+
           # Find and replace nonce=NNNNNN pattern with new nonce
           # Only within the NONCE section markers
+          # MATCHING INVARIANT FOR NONCE: Must be exactly "nonce=" followed by
+          # exactly 6 digits (e.g., nonce=019757). You can change text/styling
+          # around it, but the pattern "nonce=[0-9]{6}" must remain intact.
           NONCE_PATTERN='/<!-- NONCE -->/,/<!-- NONCE-END -->/'
           NONCE_REPLACEMENT='s/nonce=[0-9]\{6\}/nonce='"$NEW_NONCE"'/g'
           sed -i "${NONCE_PATTERN}${NONCE_REPLACEMENT}" README.md
 
-          echo "Updated README.md with new nonce value"
+          # Update the timestamp in the visual indicator
+          # MATCHING INVARIANT FOR TIMESTAMP: Must be exactly "Last updated: `"
+          # followed by any characters, followed by "`" (backtick).
+          # The text between backticks can be any format, but the pattern
+          # "Last updated: `...`" must remain intact (including backticks).
+          TS_REPL='s/Last updated: `[^`]*`/Last updated: `'"$TIMESTAMP"'`/g'
+          sed -i "${NONCE_PATTERN}${TS_REPL}" README.md
+
+          echo "Updated README.md with new nonce value and timestamp"
 
       - name: Commit and push changes
         if: steps.check-nonce.outputs.contains_nonce == 'true'
