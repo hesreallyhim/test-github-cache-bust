@@ -25,7 +25,7 @@ GitHub uses a service called [camo](https://docs.github.com/en/authentication/ke
 [![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true)](https://github.com/hesreallyhim)
 <!-- BASELINE-END -->
 
-### **Cache-busting status** | Last Issue created at: `PLACEHOLDER`
+### **Cache-busting status** | Last Issue created at: `2025-11-08 18:47:09 UTC`
 
 ## 2. Nonce Query Parameter (image URL contains "nonce" query-parameter with random numerical value)
 
