@@ -32,6 +32,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Update Issue created-at time
+        run: |
+          # Update the "Last Issue create at" time
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
+          
+
       - name: Update nonce in README
         if: steps.check-nonce.outputs.contains_nonce == 'true'
         run: |
