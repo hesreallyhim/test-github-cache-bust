@@ -8,7 +8,7 @@ The cards on this page are [`github-readme-stats`](https://github.com/anuraghazr
 
 ### OK, so what?
 
-GitHub uses a service called [camo](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-anonymized-urls) for image caching and privacy/anonymization. That means that if you are serving an image with dynamic content, changes to the content may not be reflected right away. This repo illustrates different approaches to cache-busting so you can see for yourself what works or does not work at the current point in time.
+GitHub uses a service called [camo](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-anonymized-urls) for image caching and privacy/anonymization. That means that if you are serving an image with dynamic content[^1], changes to the content may not be reflected right away. This repo illustrates different approaches to cache-busting so you can see for yourself what works or does not work at the current point in time.
 
 ## 1. Baseline (no cache-busting techniques applied)
 
@@ -25,6 +25,8 @@ GitHub uses a service called [camo](https://docs.github.com/en/authentication/ke
 [![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true)](https://github.com/hesreallyhim)
 <!-- BASELINE-END -->
 
+### **Cache-busting status** | Last Issue created at: `PLACEHOLDER`
+
 ## 2. Nonce Query Parameter (image URL contains "nonce" query-parameter with random numerical value)
 
 ### Usage
@@ -40,7 +42,13 @@ GitHub uses a service called [camo](https://docs.github.com/en/authentication/ke
 
 [![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true&nonce=010164)](https://github.com/hesreallyhim)
 
-**Cache-busting status:** `nonce=010164` | Last updated: `2025-11-08 12:42:16 UTC`
+### **Cache-busting status** | Current nonce: `nonce=010164` | Last updated: `2025-11-08 12:42:16 UTC`
 <!-- NONCE-END -->
 
+---
 
+[^1] Nowadays, an "image with dynamic content" is usuaully known as a "movie" (or, if you haven't heard of that, it's sort of like a "TikTok" but not as hilarious)... that's not really what I meant though - I should have said something like "an image that's fetched from a URL that points to a server that changes the contents of the image that being served dynamically." As you can probably tell, I've read many many long books (or, if you haven't heard of that, it's sort of like a "post" but not as profound).
+
+---
+
+Thanks to [anuraghazra](https://github.com/anuraghazra/github-readme-stats/), a pioneer of README-engineering, and maintainer of [`github-readme-stats`](https://github.com/anuraghazra/github-readme-stats/).
