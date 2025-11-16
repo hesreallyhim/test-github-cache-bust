@@ -25,7 +25,7 @@ GitHub uses a service called [camo](https://docs.github.com/en/authentication/ke
 [![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true)](https://github.com/hesreallyhim)
 <!-- BASELINE-END -->
 
-### **Cache-busting status** | Last Issue created at: `2025-11-08 18:47:09 UTC`
+### **Cache-busting status** | Last Issue created at: `2025-11-16 02:17:45 UTC`
 
 ## 2. Nonce Query Parameter (image URL contains "nonce" query-parameter with random numerical value)
 
@@ -36,13 +36,13 @@ GitHub uses a service called [camo](https://docs.github.com/en/authentication/ke
 
 <!-- NONCE -->
 ```markdown
-[![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true&nonce=010164)](https://github.com/hesreallyhim)
+[![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true&nonce=000812)](https://github.com/hesreallyhim)
 ```
 
 
-[![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true&nonce=010164)](https://github.com/hesreallyhim)
+[![test-github-cache-bust](https://github-readme-stats-plus-theta.vercel.app/api/pin?username=hesreallyhim&repo=test-github-cache-bust&show_issues=true&nonce=000812)](https://github.com/hesreallyhim)
 
-### **Cache-busting status** | Current nonce: `nonce=010164` | Last updated: `2025-11-08 12:42:16 UTC`
+### **Cache-busting status** | Current nonce: `nonce=000812` | Last updated: `2025-11-16 02:17:45 UTC`
 <!-- NONCE-END -->
 
 ---
