@@ -1,5 +1,7 @@
 # github-image-cache-bust
 
+**The cache has been busted: 0 times**
+
 ## Demo repo for testing/validating the behavior of GitHub's image-caching service (camo)
 
 ### What is this?

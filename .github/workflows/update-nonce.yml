@@ -31,6 +31,44 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check daily rate limit
+        id: rate-limit
+        if: steps.check-nonce.outputs.contains_nonce == 'true'
+        run: |
+          # Read current daily runs data
+          DAILY_FILE=".github/data/daily-runs.txt"
+          TODAY=$(date -u +"%Y-%m-%d")
+          
+          if [ -f "$DAILY_FILE" ]; then
+            RUNS=$(cut -d'|' -f1 "$DAILY_FILE")
+            LAST_DATE=$(cut -d'|' -f2 "$DAILY_FILE")
+          else
+            RUNS=0
+            LAST_DATE="1970-01-01"
+          fi
+          
+          # Reset counter if it's a new day
+          if [ "$LAST_DATE" != "$TODAY" ]; then
+            RUNS=0
+            echo "New day detected, resetting counter"
+          fi
+          
+          echo "Current runs today: $RUNS"
+          echo "Daily limit: 50"
+          
+          # Check if we've hit the daily limit
+          if [ "$RUNS" -ge 50 ]; then
+            echo "Daily limit of 50 runs reached. Skipping nonce update."
+            echo "limit_reached=true" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "limit_reached=false" >> $GITHUB_OUTPUT
+            # Increment the counter
+            NEW_RUNS=$((RUNS + 1))
+            echo "${NEW_RUNS}|${TODAY}" > "$DAILY_FILE"
+            echo "Updated daily runs to $NEW_RUNS"
+          fi
+
       - name: Update Issue created-at time
         id: update-timestamp
         run: |
@@ -45,8 +83,19 @@ jobs:
 
 
       - name: Update nonce in README
-        if: steps.check-nonce.outputs.contains_nonce == 'true'
+        if: steps.check-nonce.outputs.contains_nonce == 'true' && steps.rate-limit.outputs.limit_reached != 'true'
         run: |
+          # Increment the bust counter
+          COUNTER_FILE=".github/data/bust-counter.txt"
+          if [ -f "$COUNTER_FILE" ]; then
+            BUST_COUNT=$(cat "$COUNTER_FILE")
+          else
+            BUST_COUNT=0
+          fi
+          NEW_BUST_COUNT=$((BUST_COUNT + 1))
+          echo "$NEW_BUST_COUNT" > "$COUNTER_FILE"
+          echo "Incremented bust counter to $NEW_BUST_COUNT"
+          
           # Generate a random 6-digit number
           NEW_NONCE=$(printf "%06d" $((RANDOM % 1000000)))
           echo "Generated new nonce: $NEW_NONCE"
@@ -71,6 +120,9 @@ jobs:
           # "Last updated: `...`" must remain intact (including backticks).
           TS_REPL='s/Last updated: `[^`]*`/Last updated: `'"$TIMESTAMP"'`/g'
           sed -i "${NONCE_PATTERN}${TS_REPL}" README.md
+          
+          # Update the bust counter in README
+          sed -i 's/The cache has been busted: [0-9]* times/The cache has been busted: '"$NEW_BUST_COUNT"' times/g' README.md
 
           echo "Updated README.md with new nonce value and timestamp"
 
@@ -78,7 +130,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add README.md .github/data/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
